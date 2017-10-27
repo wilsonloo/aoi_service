@@ -32,3 +32,9 @@
 *.app
 /*.db
 /aoi_service/Debug
+/ALL_BUILD/x64/Debug
+/aoi_service/x64/Debug
+/quick_start/x64/Debug
+/x64/Debug/*.pdb
+/x64/Debug/*.ilk
+/x64/Debug/*.exp

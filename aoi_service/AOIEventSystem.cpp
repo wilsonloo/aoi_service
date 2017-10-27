@@ -1,42 +1,28 @@
 /********************************************************************
  *     Author  : Wensheng.Luo
  *       Mail  : samule21@163.com
- * CreateTime  : 2017-10-18 16:21
+ * CreateTime  : 2017-10-27 15:23
  * Description : 
 *********************************************************************/
 
-#include "AOIRegion.h"
-
-#include "AOIActor.h"
-#include "AOIActorCell.h"
+#include "AOIEventSystem.h"
 
 namespace aoi
 {
-
-	void AOIRegion::AddActorCell(AOIActorCell* cell)
+    
+	void AOIEventSystem::OnActorEntered(aoi::AOIActor* watcher, aoi::AOIActor* target)
 	{
 		//
 		throw std::logic_error("The method or operation is not implemented.");
 	}
 
-	void AOIRegion::RemoveActorCell(AOIActorCell* cell)
+	void AOIEventSystem::OnActorLeft(aoi::AOIActor* watcher, aoi::AOIActor* target)
 	{
 		//
 		throw std::logic_error("The method or operation is not implemented.");
 	}
 
-	void AOIRegion::AddCell(AOIActorCell* actor_cell)
-	{
-		// todo 
-	}
-
-	void AOIRegion::Foreach(ForeachActorFunctor functor)
-	{
-		//
-		throw std::logic_error("The method or operation is not implemented.");
-	}
-
-	void AOIRegion::Foreach(ForeachActorCellFunctor functor)
+	void AOIEventSystem::OnActorMoved(aoi::AOIActor* watcher, aoi::AOIActor* target)
 	{
 		//
 		throw std::logic_error("The method or operation is not implemented.");

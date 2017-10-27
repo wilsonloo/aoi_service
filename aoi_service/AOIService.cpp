@@ -18,14 +18,32 @@
 #include "AOIActorCell.h"
 #include "AOIRegion.h"
 
+extern "C" OPERA_LIB_API aoi::IAOIService* CreateAOIService()
+{
+	return new aoi::AOIService();
+}
+
+extern "C" OPERA_LIB_API void ReleaseAOIService(aoi::IAOIService* obj)
+{
+	if (obj != nullptr) {
+		delete obj;
+		obj = nullptr;
+	}
+}
+
 namespace aoi
 {
 
-	void AOIService::Init(OnEnteredHandler on_entered_handler, OnLeftHandler on_left_handler, OnMovedHandler on_moved_handler)
+	void AOIService::Init(aoi::IAOIManager* aoi_manager, 
+		aoi::OnEnteredHandler on_entered_handler, 
+		aoi::OnLeftHandler on_left_handler, 
+		aoi::OnMovedHandler on_moved_handler)
 	{
-		aoi_manager_->get_aoi_event_system().AddOnEnteredHandler(on_entered_handler);
-		aoi_manager_->get_aoi_event_system().AddOnLeftHandler(on_left_handler);
-		aoi_manager_->get_aoi_event_system().AddOnMovedHandler(on_moved_handler);
+		set_aoi_manager(aoi_manager);
+
+		aoi_event_system.AddOnEnteredHandler(on_entered_handler);
+		aoi_event_system.AddOnLeftHandler(on_left_handler);
+		aoi_event_system.AddOnMovedHandler(on_moved_handler);
 
 		OnInit();
 	}
@@ -57,9 +75,21 @@ namespace aoi
 		actorCell->AddActor(newActor);
 
 		// 开始触发aoi事件
-		aoi_manager_->OnAOIActorAdded(aoiRegion, actorCell, newActor);
+		OnAOIActorAdded(aoiRegion, actorCell, newActor);
 
 		return newActor;
+	}
+
+	void AOIService::OnAOIActorAdded(aoi::AOIRegion* aoi_region, aoi::AOIActorCell* aoi_cell, aoi::AOIActor* new_aoi_actor)
+	{
+		aoi_manager_->ForeachAOIActorInRange(aoi_region, aoi_cell, [&](aoi::AOIActor* actor) {
+			// 忽略自身
+			if (actor == new_aoi_actor)
+				return;
+
+			aoi_event_system.OnActorEntered(new_aoi_actor, actor);
+			aoi_event_system.OnActorEntered(actor, new_aoi_actor);
+		});
 	}
 
 	void AOIService::Remove(const aoi::GUID& actor_guid)
@@ -77,7 +107,24 @@ namespace aoi
 		actorCell->RemoveActor(actor);
 
 		// 触发aoi事件
-		aoi_manager_->OnAOIActorRemoved(actorCell->get_aoi_region(), actorCell, actor);
+		OnAOIActorRemoved(actorCell->get_aoi_region(), actorCell, actor);
+	}
+
+	void AOIService::OnAOIActorRemoved(aoi::AOIRegion* aoi_region, aoi::AOIActorCell* aoi_cell, aoi::AOIActor* removed_aoi_actor)
+	{
+		// 从映射列表移除
+		aoi_manager_->RemoveActor(removed_aoi_actor);
+
+		// 如果cell为空，则回收
+		if (aoi_cell->IsEmpty()) {
+			aoi_region->RemoveActorCell(aoi_cell);
+		}
+
+		aoi_manager_->ForeachAOIActorInRange(aoi_region, aoi_cell, [&](aoi::AOIActor* actor) {
+
+			aoi_event_system.OnActorLeft(removed_aoi_actor, actor);
+			aoi_event_system.OnActorLeft(actor, removed_aoi_actor);
+		});
 	}
 
 	void AOIService::Move(const aoi::GUID actor_guid, const aoi::IAOILocation& target_loc)
@@ -117,8 +164,8 @@ namespace aoi
 			auto actor_iter_end = cell->get_actor_iter_end();
 			
 			for (; actor_iter != actor_iter_end; ++actor_iter) {
-				aoi_manager_->OnAOIActorRemoved(*actor_iter, actor);
-				aoi_manager_->OnAOIActorRemoved(actor, *actor_iter);
+				aoi_event_system.OnActorLeft(*actor_iter, actor);
+				aoi_event_system.OnActorLeft(actor, *actor_iter);
 			}
 		}
 
@@ -127,8 +174,8 @@ namespace aoi
 			auto actor_iter_end = cell->get_actor_iter_end();
 
 			for (; actor_iter != actor_iter_end; ++actor_iter) {
-				aoi_manager_->OnAOIActorAdded(*actor_iter, actor);
-				aoi_manager_->OnAOIActorAdded(actor, *actor_iter);
+				aoi_event_system.OnActorEntered(*actor_iter, actor);
+				aoi_event_system.OnActorEntered(actor, *actor_iter);
 			}
 		}
 
@@ -137,8 +184,8 @@ namespace aoi
 			auto actor_iter_end = cell->get_actor_iter_end();
 
 			for (; actor_iter != actor_iter_end; ++actor_iter) {
-				aoi_manager_->OnAOIActorMoved(*actor_iter, actor);
-				aoi_manager_->OnAOIActorMoved(actor, *actor_iter);
+				aoi_event_system.OnActorMoved(*actor_iter, actor);
+				aoi_event_system.OnActorMoved(actor, *actor_iter);
 			}
 		}
 	}

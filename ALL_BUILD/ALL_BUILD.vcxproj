@@ -18,32 +18,9 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AOIActor.h" />
-    <ClInclude Include="AOIActorCellPool.h" />
-    <ClInclude Include="AOIActorGUID.h" />
-    <ClInclude Include="AOIActorCell.h" />
-    <ClInclude Include="AOIEvent.h" />
-    <ClInclude Include="AOIEventSystem.h" />
-    <ClInclude Include="def\platform.h" />
-    <ClInclude Include="def\setup.h" />
-    <ClInclude Include="IAOIManager.h" />
-    <ClInclude Include="AOIRegion.h" />
-    <ClInclude Include="AOIService.h" />
-    <ClInclude Include="IAOILocation.h" />
-    <ClInclude Include="IAOIService.h" />
-    <ClInclude Include="NotImplementException.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="AOIActorCell.cpp" />
-    <ClCompile Include="AOIActorCellPool.cpp" />
-    <ClCompile Include="AOIEventSystem.cpp" />
-    <ClCompile Include="AOIRegion.cpp" />
-    <ClCompile Include="AOIService.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{577F78C8-F87F-4CEC-B406-FD5FF31F255C}</ProjectGuid>
-    <RootNamespace>aoi_service</RootNamespace>
+    <ProjectGuid>{789BE5CA-A533-42CB-8F65-393F9581A26D}</ProjectGuid>
+    <RootNamespace>ALL_BUILD</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -61,7 +38,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -91,19 +68,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetExt>.dll</TargetExt>
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>OPERA_DYNAMIC_EXPORT;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -111,7 +81,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_WINDOWS;OPERA_LIB_SOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,6 +109,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

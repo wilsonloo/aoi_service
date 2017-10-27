@@ -8,7 +8,7 @@
 #ifndef __AOI_SERVICE_DLL_MAIN_LOADER_H__
 #define __AOI_SERVICE_DLL_MAIN_LOADER_H__
 
-#include "def/platform.h"
+#include "platform.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ÉùÃ÷¶¯Ì¬¿âºê
@@ -18,8 +18,11 @@
 #    define DYNLIB_GETSYM( a, b ) GetProcAddress( a, b )
 #    define DYNLIB_UNLOAD( a ) FreeLibrary( a )
 
-struct HINSTANCE__;
-typedef struct HINSTANCE__* hInstance;
+#ifdef OPERA_LIB_SOURCE  
+#define OPERA_LIB_API __declspec(dllexport)
+#else  
+#define OPERA_LIB_API  __declspec(dllimport)
+#endif  
 
 #endif // ÉùÃ÷¶¯Ì¬¿âºê
 

@@ -21,11 +21,15 @@ namespace aoi
     {
 	private:
 		AOIRegion* aoi_region_;
+		IAOILocation location_;
 		std::list<AOIActor*> aoi_actors_;
 
 	public:
 		inline aoi::AOIRegion* get_aoi_region() const { return aoi_region_; }
 		inline void set_aoi_region(aoi::AOIRegion* val) { aoi_region_ = val; }
+
+		inline const aoi::IAOILocation& get_location() const { return location_; }
+		inline void set_location(const aoi::IAOILocation& val) { location_ = val; }
 
 		inline std::list<AOIActor*>::iterator get_actor_iter_begin() { return aoi_actors_.begin(); }
 		inline std::list<AOIActor*>::iterator get_actor_iter_end() { return aoi_actors_.end(); }

@@ -31,11 +31,8 @@
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 #endif
 
-#include <Windows.h>
-#define OPERA_EXPORT extern "C"  __declspec(dllexport)
-
 #else
-#define OPERA_EXPORT 
+#define OPERA_LIB_API 
 
 #endif // // Windows Settings
 

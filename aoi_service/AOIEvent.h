@@ -26,14 +26,14 @@ namespace aoi
 	@watcher 观察者
 	@marker  被观察者
 	/************************************************************************/
-	typedef std::function<void(AOIActor& watcher, AOIActor marker)> OnLeftHandler;
+	typedef std::function<void(AOIActor& watcher, AOIActor target)> OnLeftHandler;
 
 	/************************************************************************
 	* 目标移动事件
 	@watcher 观察者
 	@marker  被观察者
 	/************************************************************************/
-	typedef std::function<void(AOIActor& watcher, AOIActor marker)> OnMovedHandler;
+	typedef std::function<void(AOIActor& watcher, AOIActor target)> OnMovedHandler;
 
 }
 

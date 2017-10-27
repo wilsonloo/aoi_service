@@ -20,16 +20,12 @@ namespace aoi
 	{
 	private:
 		GUID guid_;
-		IAOILocation location_;
 		AOIActorCell* aoi_cell_;
 
 	public:
 
 		inline const GUID& get_guid() const { return guid_; }
 		inline void set_guid(const GUID& val) { guid_ = val; }
-
-		inline const aoi::IAOILocation& get_location() const { return location_; }
-		inline void set_location(const aoi::IAOILocation& val) { location_ = val; }
 
 		inline aoi::AOIActorCell* get_aoi_cell() const { return aoi_cell_; }
 		inline void set_aoi_cell(aoi::AOIActorCell* val) { aoi_cell_ = val; }

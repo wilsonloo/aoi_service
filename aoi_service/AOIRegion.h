@@ -20,19 +20,29 @@ namespace aoi
     class AOIRegion
     {
 	public:
-		typedef std::function<void(AOIActor&)> ForeachFunctor;
+		enum FOREACH_ACTION_ENUM {
+			CONTINUE = 0,
+			BREAK,
+		};
+
+	public:
+		typedef std::function<void(aoi::AOIActor&)> ForeachActorFunctor;
+		typedef std::function<void(aoi::AOIActorCell&)> ForeachActorCellFunctor;
+		typedef std::function<FOREACH_ACTION_ENUM(aoi::AOIActorCell&)> ForeachActorCellFunctorWithAction;
 
 	public:
 
-		void AddActorCell(AOIActorCell* cell);
-		void RemoveActorCell(AOIActorCell* cell);
+		void AddActorCell(aoi::AOIActorCell* cell);
+		void RemoveActorCell(aoi::AOIActorCell* cell);
 		
 		/************************************************************************
 		 * 将actor 添加到 指定cell内（一个cell对应一个位置，一个位置上有多个actor）                                                                 
 		/************************************************************************/
-		void AddCell(AOIActorCell* actor_cell);
+		void AddCell(aoi::AOIActorCell* actor_cell);
 
-		void Foreach(ForeachFunctor functor);
+		void Foreach(ForeachActorFunctor functor);
+		void Foreach(ForeachActorCellFunctor functor);
+		void Foreach(ForeachActorCellFunctorWithAction functor);
 
     }; // class AOIRegion
 }
