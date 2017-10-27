@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="grid_impl">
+      <UniqueIdentifier>{f7697a07-c649-4ab5-a367-edbefab6ba07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="def">
+      <UniqueIdentifier>{e140d0ba-04c7-4c1f-a83f-7a53543ba3bb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AOIActor.h" />
+    <ClInclude Include="AOIEvent.h" />
+    <ClInclude Include="AOIRegion.h" />
+    <ClInclude Include="AOIService.h" />
+    <ClInclude Include="IAOILocation.h" />
+    <ClInclude Include="NotImplementException.h" />
+    <ClInclude Include="IAOIManager.h" />
+    <ClInclude Include="AOIActorGUID.h" />
+    <ClInclude Include="AOIActorCell.h" />
+    <ClInclude Include="AOIEventSystem.h" />
+    <ClInclude Include="AOIActorCellPool.h" />
+    <ClInclude Include="grid_impl\AOIManagerGridImpl.h">
+      <Filter>grid_impl</Filter>
+    </ClInclude>
+    <ClInclude Include="def\platform.h">
+      <Filter>def</Filter>
+    </ClInclude>
+    <ClInclude Include="dll_main_loader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AOIService.cpp" />
+    <ClCompile Include="AOIRegion.cpp" />
+    <ClCompile Include="IAOIManager.cpp" />
+    <ClCompile Include="AOIActorCellPool.cpp" />
+    <ClCompile Include="grid_impl\AOIManagerGridImpl.cpp">
+      <Filter>grid_impl</Filter>
+    </ClCompile>
+    <ClCompile Include="dll_main_loader.cpp" />
+  </ItemGroup>
+</Project>

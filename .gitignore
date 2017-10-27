@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+/*.db
+/aoi_service/Debug
